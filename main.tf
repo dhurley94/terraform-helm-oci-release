@@ -4,14 +4,6 @@ locals {
   complete_helm_login_command = var.helm_login_command == "" ? "" : "${var.helm_login_command} ${var.oci_repository}"
 }
 
-terraform {
-  required_providers {
-    helm = {
-      source = "helm"
-    }
-  }
-}
-
 resource "null_resource" "get_chart" {
   triggers = {
     always_run = local.chart_url
