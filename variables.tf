@@ -25,36 +25,46 @@ variable "chart_version" {
 
 variable "chart_download_location" {
   description = "Temporary directory where to download the chart to"
-  default = "/tmp"
+  default     = "/tmp"
 }
 
 variable "release_namespace" {
   description = "Kubernetes namespace to install the release to"
-  default = "default"
+  default     = "default"
 }
 
 variable "release_force_update" {
   description = "Whether to helm install --force"
-  default = true
+  default     = true
 }
 
 variable "release_name" {
   description = "Name of the helm release (leave unset / empty if you want to use the chart name)"
-  default = ""
+  default     = ""
 }
 
 variable "helm_login_command" {
   description = "Command to login to the helm registry without the repository URL (e.g. 'echo $REGISTRY_PASSWORD | helm registry login -u AWS --password-stdin'). Leave unset / empty if no login should be performed."
-  default = ""
+  default     = ""
 }
 
 variable "kubernetes_config_path" {
   description = "Path to your Kubernetes configuration"
-  default = "~/.kube/config"
+  default     = "~/.kube/config"
 }
 
 variable "values" {
   description = "List of values in raw yaml format to pass to helm."
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
+}
+
+variable "set_values" {
+  description = "List of values that are individually merged into values"
+  default     = []
+  type = list(object({
+    name  = string
+    value = string
+    type  = optional(string)
+  }))
 }
